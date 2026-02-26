@@ -1,0 +1,7 @@
+complaint_id,created_at,customer_name,customer_email,category,priority,urgency,sla,status,sentiment_label,sentiment_score,text
+CMP-EE539B23,2026-02-26T18:42:11.485014,John Doe,john@example.com,Delivery,Medium,False,24 Hours,Open,Negative,-0.2263,My delivery is being delayed. I haven't received my package yet.
+CMP-4B3F5CFE,2026-02-26T19:00:02.133214,Test DB User,dbtest@user.com,Delivery,High,True,12 Hours,Open,Neutral,0.0,My service has been completely down for the last 5 days. I need someone to look at this now!
+CMP-EE2D3CCE,2026-02-26T19:49:23.313790,Saikiran.k,sai@gmail.com,Delivery,Low,False,48 Hours,Open,Positive,0.0762,i cant pay my bill
+CMP-8F80DCA8,2026-02-26T19:56:26.077587,Saikiran.k,sai@gmail.com,Delivery,Low,False,48 Hours,Open,Neutral,0.0,i have not recieved the package
+CMP-B154275D,2026-02-26T20:05:08.643645,Test Delivery,delivery@test.com,Delivery,Low,False,48 Hours,Open,Neutral,0.0,My package said it was delivered 3 days ago but I never received anything at my door.
+CMP-FF3D38C2,2026-02-26T20:05:09.353001,Test Product,product@test.com,Delivery,Medium,False,24 Hours,Open,Negative,-0.4767,The phone case I bought is already cracking after one week of use. Terrible quality.

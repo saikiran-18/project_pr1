@@ -1,0 +1,800 @@
+ 
+Automating Customer Complaint Classification in 
+Telecom using Pretrained Natural Language 
+Processing Models 
+Azhaguvelan Thayumanavan 
+AT&T  
+Frisco, USA 
+azh.velan@ieee.org
+Abstract— Customer complaint management is a key 
+operational challenge for telecommunication service providers, 
+where manual classification operations utilize significant human 
+resources and present classification inconsistencies. This study 
+introduces an extensive examination of automated complaint 
+classification systems using pretrained Natural Language 
+Processing (NLP) models that attain 92.5% accuracy using 
+transformer-based architecture. The research compares various 
+techniques such as standard machine learning techniques, 
+bidirectional LSTM models, and BERT-based transformer 
+models on a 6,000-strong telecom customer complaint dataset 
+with six categories. Experiments prove the improvement of 
+results rapidly compared to standard methods, with 
+transformer models outperforming regular Naive Bayes 
+classifiers with 5.2% improvement and retaining production-
+level inference times of 12 milliseconds. The study fills 
+significant gaps in domain-specific NLP applications for 
+telecommunications by offering an extensible framework for 
+real-time complaint handling and customer care automation. 
+Keywords— Natural Language Processing, Transformer 
+Models, Customer Complaint Classification, 
+Telecommunications, Automated Text Classification, BERT, Deep 
+Learning 
+I. INTRODUCTION  
+The telecommunication sector handles millions of 
+complaints from customers every year and needs efficient 
+classification systems to direct problems to respective 
+resolution teams [1]. Manual classification methods used 
+traditionally are plagued by inconsistency, high human 
+resources utilization, and delays in processing that have 
+adverse effects on customer satisfaction indices. The arrival of 
+pretrained NLP models has opened possibilities for automated 
+classification systems capable of handling complaints with 
+human-level accuracy without sacrificing real-time 
+processing. Telecommunications customer complaints fall 
+into several categories such as connectivity problems within 
+the network, billing issues, service quality problems, and 
+international roaming issues. Semantic intricacy and domain-
+specific jargon pose special challenges for machine-learning-
+based classification systems. State- of-the-art transformer 
+models, especially BERT and RoBERTa models, have shown 
+outstanding performance for text classification tasks in diverse 
+domains [2]. This study explores the use of pretrained NLP 
+models for the classification of telecom complaints, covering 
+essential domain-specific implementation and production 
+deployment aspects. The work provides new findings on the 
+comparative performance of standard machine learning versus 
+contemporary transformer-based architectures within the 
+telecommunications context. 
+II. LITERATURE REVIEW 
+A. Traditional Text Classification Methods 
+Early customer complaint classification methodologies 
+were primarily based on rule-based systems as well as 
+conventional machine learning techniques. Support Vector 
+Machines (SVM) and Naive Bayes classifiers were heavily 
+used for text classification purposes, showing decent 
+performance with appropriate feature engineering [3]. These 
+methodologies used bag- of-words representation or TF-IDF 
+vectorization to transform textual data into numerical features 
+acceptable to machine learning algorithms. The bag-of-words 
+model encoded documents as vectors wherein each feature 
+index represented a distinct word in the vocabulary, with 
+values reflecting word frequency or absence. Term 
+Frequency-Inverse Document Frequency (TF-IDF) weighting 
+strategies were used to highlight unique terms while 
+downplaying frequent terms. Feature selection methods like 
+chi-square testing and mutual information were used to extract 
+the most discriminating features for classification.  
+Studies on customer service complaint classification 
+reported 75% to 85% accuracy with conventional approaches 
+[4]. Decision trees and random forests were also considered 
+for their merits of interpretability so that the service managers 
+could comprehend the classification choices through rule 
+extraction. Such methods had some shortcomings such as 
+inability to make use of semantic relations, poor support for 
+domain-specific vocabulary, need for heavy manual feature 
+engineering, and being sensitive to vocabulary differences. 
+The dimensionality curse was a major challenge to deal with 
+within the case of big vocabularies, where dimension 
+reduction methods like PCA or LSA had to be used. Even 
+conventional approaches had issues with dealing with 
+negations, sarcasm, and context-sensitive meanings prevalent 
+in customer complaint language. 
+B. Deep Learning Approaches 
+Deep learning architecture introduced the revolution of 
+text classification performance by allowing the automatic 
+learning of features from raw text data. CNNs and RNNs 
+showed better ability to learn sequential patterns and local 
+characteristics of textual data [5]. CNNs were found to be 
+especially efficient in the detection of local patterns and n-
+gram features using convolution operations in sequences of 
+text.  Word embeddings like Word2Vec and GloVe offer 
+dense vector representations that encode semantic context 
+between words, overcoming sparse bag- of-words 
+representation limitations. These embeddings allowed models 
+to learn semantic similarity between words such as "excellent" 
+and "outstanding" or "problem" and "issue," leading to a 
+dramatic boost in classification accuracy. Long Short-Term 
+Memory (LSTM) networks resolved the vanishing gradient 
+Proceedings of the 3rd International Conference on Sustainable Computing and Data Communication Systems (ICSCDS-2025)
+IEEE Xplore Part Number: CFP25AZ5-ART; ISBN: 979-8-3315-1250-7
+979-8-3315-1250-7/25/$31.00 ©2025 IEEE 907
+2025 3rd International Conference on Sustainable Computing and Data Communication Systems (ICSCDS) | 979-8-3315-1250-7/25/$31.00 ©2025 IEEE | DOI: 10.1109/ICSCDS65426.2025.11167043
+Authorized licensed use limited to: National Library of Technology. Downloaded on December 27,2025 at 14:00:35 UTC from IEEE Xplore.  Restrictions apply. 
+issue in conventional RNNs, allowing more effective 
+modeling of long-range dependencies in text sequences. The 
+gating operations in LSTM cells permitted selective 
+remembering and forgetting of information, essential for 
+grasping context succinctly in longer complaint descriptions. 
+Bidirectional LSTM networks also enhanced performance by 
+processing sequences in both forward and reverse directions, 
+capturing complete contextual information [6]. Attention 
+mechanisms were established to enable models to concentrate 
+on meaningful segments of input sequences, correcting for the 
+shortcoming of fixed -length representations in sequence -to-
+sequence models. This ability proved especially useful in 
+complaint classification where meaningful keywords or 
+phrases may be dis tributed across longer text descriptions. 
+Customer service automation research documented 8 -12% 
+accuracy gains when migrating from conventional machine 
+learning to deep learning methodologies. Automatic learning 
+of hierarchical feature representations rend ered much of the 
+feature engineering done manually by conventional methods 
+unnecessary. 
+C. Transformer Models and Pretrained Architectures 
+The transformer architecture presented in 2017 
+revolutionized the state of NLP applications [7]. The self -
+attention allowed models to extract long -range dependencies 
+independent of sequential processing, resulting in remarkable 
+improvements in numerous tex t classification tasks. In 
+contrast to RNNs that processed sequences sequentially, 
+transformers had the capability to process all the positions in 
+parallel, thus facilitating more efficient parallel computing. 
+The multi-head attention mechanism enabled mod els to pay 
+attention to multiple representation subspace at once, 
+modeling various kinds of linguistic relations within a single 
+model. Positional encodings were added to include sequence 
+order information because the attention mechanism itself is 
+position-agnostic. BERT (Bidirectional Encoder 
+Representations from Transformers) also showed remarkable 
+performance on various NLP tasks, setting the state-of-the-art 
+on text classification, question answering, and sentiment 
+analysis [8]. BERT's ability to be bidirectionally trained with 
+masked language modeling and next sentence prediction 
+objectives allowed it to acquire deep contextualized 
+representations that far surpassed earlier methods. 
+RoBERTa also improved BERT architecture with 
+enhanced training techniques such as elimination of the next 
+sentence prediction task, training on longer sequence lengths, 
+and dynamic masking patterns, posting further performance 
+improvements [9]. DistilBERT applied knowledge distillation 
+methods to produce smaller, faster models without losing 
+most of the performance advantages of full -sized BERT 
+models. Various recent experiments of customer service 
+automation employing BERT -based models have registered 
+accuracy levels of more than 90% for a wide range of domains 
+[10]. Fine -tuning approaches were formulated to train 
+pretrained models for domains and tasks and support transfer 
+learning from large -scale pretraining to domain -specific 
+operations with minimal training data. Still, these studies were 
+more geared towards general customer service use cases and 
+not specifically to telecommunications complaint 
+classification. Large transformer models' computational 
+demands also made real-time deployment scenarios prevalent 
+in customer service settings less feasible. 
+D. Domain-Specific Applications in Telecommunications 
+Little research has been aimed at complaint classification 
+in telecommunications. Previous work was networking fault 
+detection and quality of service forecasting and not customer 
+complaint analysis [11]. The telecommunications sector poses 
+special challenges such as technical jargon, service -oriented 
+complaint patterns, varied customer communication styles, 
+and the necessity for real -time processing capabilities. 
+Telecom complaints have domain -specific jargon like 
+"roaming charges," "data throttling," "sign al strength," and 
+"network coverage" that are not necessarily well -represented 
+by general language models. The time -based dynamics of 
+service faults also generate patterns wherein complaint types 
+can align with network incidents, service disruption, or billing 
+periods. Prior research in telecommunications NLP 
+concentrated on network log analysis, fault prediction, and 
+quality of service measures more than customer -confronted 
+text examination. Sentiment examination of social media 
+posts by telecommunications  brands has been done, though 
+such research often handled brand opinion more than targeted 
+complaint classification for operational use. The combination 
+of structured customer data (account data, service plans, usage 
+habits) with unstructured complaint tex t offers new 
+opportunities and challenges not well investigated in the 
+literature. Classical methods tended to analyze these data 
+types independently, neglecting synergies in forecast quality. 
+Gaps in research noted from existing literature are limited 
+assessment of transformer models in the telecommunication 
+context, inadequate analysis of deployment considerations for 
+production, no thorough comparison of traditional and 
+contemporary methods for domain -specific uses, and 
+inadequate examination of hybrid m ethods that integrate 
+textual and structural data characteristics well. 
+III. RESEARCH GAPS AND CONTRIBUTIONS 
+A. Identified Research Gaps 
+Existing literature has some key gaps in 
+telecommunications complaint classification:  
+Gap 1: Domain -Specific Model Evaluation - Most 
+studies only test NLP models on common text classification 
+datasets and not on telecom -specific complaint data, thereby 
+restricting the generalizability of results to actual telecom 
+situations.  
+Gap 2: Analysis of Production Deployment - Few 
+studies discuss the real -world constraints in deploying 
+transformer models in production settings, such as inference 
+time limits, memory usages, and scalability.  
+Gap 3: In-Depth Architecture Comparison - There is a 
+lack of comparative study between standard machine learning 
+methods and contemporary transformer architectures for 
+telecom complaint classification.  
+Gap 4: Feature Integration Strategies - Insufficient 
+research into best practices on integrating textual features with 
+numerical structured features typically present in telecom 
+customer service systems. 
+B. Research Contributions 
+This paper makes available the first comprehensive 
+assessment of various NLP methods on a complaint dataset 
+from the telecommunications domain, with domain -relevant 
+performance benchmarks. An optimized production -
+deployment-friendly novel BERT -inspired arc hitecture 
+Proceedings of the 3rd International Conference on Sustainable Computing and Data Communication Systems (ICSCDS-2025)
+IEEE Xplore Part Number: CFP25AZ5-ART; ISBN: 979-8-3315-1250-7
+979-8-3315-1250-7/25/$31.00 ©2025 IEEE 908
+Authorized licensed use limited to: National Library of Technology. Downloaded on December 27,2025 at 14:00:35 UTC from IEEE Xplore.  Restrictions apply. 
+performs with 92.5% accuracy while having 12 -millisecond 
+inference times. The research includes exhaustive 
+comparative studies on classical machine learning techniques 
+and transformer -based models with quantification of 
+performance improvements in various evaluation metrics. 
+Furthermore, the research also shows excellent integration 
+practices for fusing textual and numerical features in telecom 
+complaint classification tasks. 
+IV. METHODOLOGY 
+A. Dataset Description 
+The research made use of a broad dataset of 6,000 
+telecommunication customer complaints gathered from 
+customer service interactions through various touch points 
+such as phone call, online chat, email, and mobile app. The 
+dataset captures six major complain t categories: Network 
+Problem (16.7%), International Roaming (16.6%), Data 
+Speed (16.4%), Dropped Calls (17.0%), Customer Service 
+(16.3%), and Billing Issue (17.0%). Textual description and 
+13 engineered numerical features capture every record of 
+complaints encompassing customer account properties and 
+service metrics. The complaint text information captures 
+realistic customer communications with natural language 
+usage variations, colloquial terms, and emotional expressions 
+common in customer service relations. The dataset has a 12 -
+month collection window to provide assurance of seasonal 
+patterns and temporal variation in complaint types. 
+Geographic coverage is in urban and rural service areas to 
+capture varied network conditions and customer populations. 
+The numerical attributes are customer tenure, service plan 
+type, history of prior complaint, account status indicators, 
+usage patterns, payment behavior, and service quality 
+measurements. These attributes were developed based on 
+domain knowledge and prior wor k analysis with complaint 
+resolution patterns. The data have balanced distribution across 
+categories, which reduces the effects of class imbalance on 
+model performance. Lengths of complaint texts range from 21 
+to 45 characters with an average of 32 charact ers, which is 
+representative of common customer communication style in 
+telecom service settings. Data quality assurance measures 
+involved manual checking of category labels by veteran 
+customer service representatives, stripping off personally 
+identifiable information, and formatting complaint text to a 
+standard. Inter-annotator agreement analysis showed Cohen's 
+kappa coefficient of 0.89, reflecting high consistency in labels. 
+B. Data Preprocessing 
+Thorough preprocessing processes were applied for the 
+preparation of text data for model training with the retention 
+of semantic meaning and domain terminology. Text 
+normalization comprised lowercase transformation, removal 
+of punctuation, and standardizat ion of whitespace. Specific 
+processing was applied for telecommunications -specific 
+abbreviations, and technical terms were typically used in 
+customer interaction. Training data -derived vocabulary was 
+employed, including special tokens ([PAD], [UNK], [CLS],  
+[SEP]) in compliance with BERT tokenization standards. 
+Vocabulary construction included frequency -based filtering, 
+which kept words that occurred at least twice in the training 
+corpus to achieve a balanced coverage and computational 
+cost. Stop word remova l was selectively done, maintaining 
+negation of words and sentiment indicators of importance for 
+complaint classification. Tokenization was performed using 
+WordPiece tokenizer aligned with BERT preprocessing, 
+converting input strings into token IDs based o n subword 
+units, preserving semantic granularity.  
+The last vocabulary had 115 distinct tokens and offered 
+thorough coverage of the telecommunications domain 
+vocabulary with computational effectiveness. Analysis of the 
+vocabulary showed domain -specific vocabulary such as 
+"roaming," "throttling," "overage," "outage," and "escalation" 
+that would not be included in general language vocabularies. 
+Sequence length standardization was applied by employing 
+truncation and padding strategies. Longer sequences than the 
+max length were truncated from the end, retaining  the start 
+context which normally has primary complaint information. 
+Shorter sequences were padded with special tokens to ensure 
+uniform input dimensions across the dataset. 
+ 
+Fig. 1. Data Flow Diagram for Complaint Classification System 
+Numerical feature pre-processing involved normalization 
+to unit variance and zero mean, missing values were treated 
+using median imputation, and nominal variables were encoded 
+as categorical. Feature correlation helped to spot redundant 
+features that were then deleted to avoid overfitting and 
+decrease dimensionality. Figure 1 shows the data flow for the 
+classification system.  
+C. Model Architectures 
+Classification pipeline entails normalizing complaint text 
+and feature data into input vectors, inputting them into a 
+transformer neural network, and predicting one of six 
+preselected complaint categories through a softmax classifier. 
+We compare both tradi tional machine learning and deep 
+learning configurations to ascertain the best -performing and 
+deployable setup. 
+1) Traditional Baseline Models : Naive Bayes classifiers 
+were used as baseline models to compare performance 
+against more sophisticated architectures. The three variants 
+were created: text-only model based on binary bag -of-words 
+representation, numerical -only model based on structured 
+features only, and combined model with both textual and 
+numerical features incorporated using concatenated feature 
+vectors.  The Naive Bayes model with text only utilized 
+multinomial distribution assumptions appropriate for discrete 
+word count features. Laplace smoothing with alpha value 1.0 
+was used to address the problem of zero probabilities for 
+Proceedings of the 3rd International Conference on Sustainable Computing and Data Communication Systems (ICSCDS-2025)
+IEEE Xplore Part Number: CFP25AZ5-ART; ISBN: 979-8-3315-1250-7
+979-8-3315-1250-7/25/$31.00 ©2025 IEEE 909
+Authorized licensed use limited to: National Library of Technology. Downloaded on December 27,2025 at 14:00:35 UTC from IEEE Xplore.  Restrictions apply. 
+unseen word -class combinations. Chi -square statistics were 
+used for feature selection in order to select the most 
+discriminative terms per complaint category. The joint model 
+needed to be treated with caution while scaling the features 
+to counterbalance the effect of textual and numeric features. 
+Textual features were normalized by document length, 
+whereas numeric features were standardized to unit variance. 
+The strategy of integrating concatenated normalized feature 
+vectors was maintained while still respe cting the 
+independence assumptions of the Naive Bayes setting. The 
+Naive Bayes probability calculation for class prediction is as 
+follows: 
+𝑃(𝑐|𝑑) = 𝑃(𝑐) × 𝜋𝑖=1
+𝑛 𝑃(𝑤𝑖|𝑐)                 (1) 
+where P(c|d) represents the probability of class c given 
+document d, P(c) denotes class prior probability, and P(w i|c) 
+represents the likelihood of word wi given class c.  
+Other baseline models consisted of Support Vector 
+Machine classifiers using linear and RBF kernels, Random 
+Forest ensembles of different tree numbers, and Logistic 
+Regression with L1 and L2 regularization. These models 
+yielded thorough baseline comparisons  among various 
+algorithmic strategies.  
+BERT-Inspired Transformer Architecture: A new BERT-
+inspired architecture was designed with a specific aim at 
+telecom complaint classification, balancing performance and 
+computational cost. The model involves token embeddings, 
+positional encodings, and multi -layer bidirectional 
+processing with at tention mechanisms at the same time as 
+production-ready inference times. The token embedding 
+layer embeds vocabulary indices as dense 128 -dimensional 
+vectors, initialized from Glorot uniform distribution. The 
+embedding dimension was chosen by way of hyperparameter 
+optimization for trade -off between expressiveness and 
+computational efficiency. Positional embeddings of the same 
+dimensionality capture sequence order information 
+implemented as learnable parameters instead  of fixed 
+sinusoidal encodings. The transformer core layers employ 
+bidirectional LSTM units rather than bare self -attention 
+mechanisms to decrease computational complexity without 
+compromising bidirectional context modeling. Every LSTM 
+layer treats sequences in both forward and reverse directions 
+and concatenates outputs to create full bidirectional 
+representations. Residual connections and layer 
+normalization are utilized before every LSTM layer to 
+facilitate stable training of deeper networks and speed up  
+convergence.  
+The attention mechanism calculates weighted 
+representations as follows: 
+𝐴𝑡𝑡𝑒𝑛𝑡𝑖𝑜𝑛 (𝑄, 𝐾, 𝑉) = 𝑠𝑜𝑓𝑡𝑚𝑎𝑥 (
+𝑄𝐾𝑇
+√𝑑𝑘
+) 𝑉          (2) 
+where Q, K, and V represent query, key, and value 
+matrices respectively, and d k denotes the dimension of key 
+vectors.  
+Global attention pooling pools sequence -level 
+representations by calculating weighted averages over all time 
+steps. The attention weights are learned using a single -layer 
+neural network that scores the relevance of each hidden state 
+to the classification task.   
+The head of classification comprises several dense layers 
+with incremental dimensionality reduction: 128 units in the 
+first, 64 units in the second, and 6 units in the output layer 
+corresponding to complaint categories. ReLU activation 
+functions are used i n hidden layers, whereas softmax 
+activation is used for normalizing output probabilities.  
+Dropout regularization with varying rates of 0.15 to 0.3 is 
+utilized across the network to avoid overfitting. L2 weight 
+regularization with the lambda parameter of 0.01 adds further 
+limitation to the complexity of the model. Layer normalization 
+is used pri or to every dense layer to stabilize training 
+dynamics.  
+2) CNN-LSTM Hybrid Model : A RoBERTa -inspired 
+hybrid CNN -LSTM architecture was employed for 
+comparative study, blending the local pattern recognition 
+ability of convolutional layers with the sequential modeling 
+abilities of recurrent networks. This architecture is an 
+alternative to transformer-based models but retaining 
+computational efficiency. The model adopts parallel 
+convolutional layers with kernel sizes of 3, 4, and 5 to extract 
+multi-scale text features in one step. Each convolutional layer 
+includes 64 f ilters with ReLU activation for detecting local 
+patterns in varying granularities. The parallel structure 
+enables the model to detect short -phrase patterns and longer 
+contextual relationships in complaint text.  Max pooling 
+operations minimize dimensionality without losing the most 
+significant features discovered by each convolutional filter. 
+The pooled features from each of the parallel branches are 
+concatenated together to produce a complete representation 
+involving multiple scale patterns.  A bidirectiona l LSTM 
+layer processes the concatenated CNN features to model 
+sequential dependencies and long -range relationships. The 
+LSTM hidden state size of 64 units balances representational 
+capacity with computational efficiency. Dropout rates of 0.2 
+are applied to both input and recurrent connections to prevent 
+overfitting.  The last layers of classification replicate the 
+design of transformer architecture, using hierarchical 
+dimensionality reduction using dense layers of 128 and 64 
+hidden units respectively. Great er dropout values (0.4 and 
+0.3) are used in the head of classification because of the lower 
+complexity of CNN features as opposed to transformer 
+representations. 
+D. Training Configuration 
+Training of models utilized stratified 80 -20 train -test 
+splits to preserve category distribution balance for all 
+experiments. Cross-validation with 5 folds was used during 
+hyperparameter tuning to ensure strong parameter choice and 
+avoid overfitting indivi dual data splits. The BERT -based 
+model used Adamax as the optimization with initial learning 
+rate of 0.002, selected using grid search among learning rates 
+of 0.0001 to 0.01. The batch size of 32 was chosen due to 
+memory limitations and convergence stabili ty evaluation. 
+Training was conducted for 15 epochs with early stopping on 
+patience of 3 epochs of validation loss.  
+Learning rate scheduling utilized exponential decay with 
+factor 0.95 every 2 epochs for fine -grained optimization at 
+subsequent training phases. Gradient clipping with the 
+maximum norm 1.0 avoided exploding gradient issues during 
+training. Regularization m ethods involved dropout layers 
+Proceedings of the 3rd International Conference on Sustainable Computing and Data Communication Systems (ICSCDS-2025)
+IEEE Xplore Part Number: CFP25AZ5-ART; ISBN: 979-8-3315-1250-7
+979-8-3315-1250-7/25/$31.00 ©2025 IEEE 910
+Authorized licensed use limited to: National Library of Technology. Downloaded on December 27,2025 at 14:00:35 UTC from IEEE Xplore.  Restrictions apply. 
+with tiered rates (0.15 -0.3) depending on layer depth and 
+complexity, L2 weight regularization with lambda coefficient 
+0.01 for all dense layers, and layer normalization for training 
+stability. Data augmentation methods were investigated such 
+as synonym su bstitution with domain -specific word 
+embeddings, random deletion of words with probability 0.1, 
+and sentence reordering for multi-sentence complaints. 
+To increase accuracy, the model was trained with domain-
+specific embeddings and hyperparameter tuned carefully. 
+Regularization methods such as dropout and L2 penalties 
+were used to avoid overfitting, and early stopping was used 
+to ensure that the model gen eralized well without 
+overtraining. All these processes drastically increased 
+classification performance across all categories. Nonetheless, 
+the brevity of telecom complaints restricted the efficacy of 
+standard text augmentation methods. Early stopping and  
+scheduling of the learning rate were used to avoid overfitting 
+and accelerating convergence. The validation accuracy was 
+tracked while training and model checkpointing at peak 
+validation performance was done to attain optimal 
+generalization. 
+E. Evaulation Metrics 
+The performance of the model was measured using 
+standard classification criteria such as accuracy, precision, 
+recall, and F1 -score calculated globally and per -category to 
+give a complete picture of performance evaluation. Macro -
+averaging was used for multi-class metrics to assign the same 
+weight to every complaint category irrespective of support 
+size. The calculation of F1 -score takes precision and recall 
+together: 
+𝐹1𝑖 =  
+2×𝑃𝑟𝑒𝑐𝑖𝑠𝑖𝑜𝑛𝑖×𝑅𝑒𝑐𝑎𝑙𝑙𝑖
+𝑃𝑟𝑒𝑐𝑖𝑠𝑖𝑜𝑛𝑖+𝑅𝑒𝑐𝑎𝑙𝑙𝑖
+                     (3) 
+Where,  
+• F1i: F1-score for class i 
+• Precisioni: Precision for class 
+• Recalli: Recall for class 
+Analysis of the confusion matrix gave rich information 
+about misclassification patterns and category -specific 
+characteristics of performance. Statistical significance testing 
+for improvement in performance between models was done 
+with McNemar's test.  Furt her, inference time and memory 
+usage metrics were recorded to measure production 
+deployment feasibility. Inference timing averaged over 1000 
+prediction iterations for the purpose of obtaining reliable 
+measurements.  
+Memory profiling monitored peak GPU and CPU memory 
+usage during training and inference.  Model interpretability 
+was evaluated by attention weight analysis for the transformer 
+models and feature importance scoring for the legacy 
+methods. Attention visualiza tions yielded information on 
+model decision -making and domain -specific pattern 
+recognition. Analysis of confidence calibration compared 
+predicted probabilities with actual accuracy to determine 
+model reliability for production deployment scenarios that 
+involve confidence-based routing decisions. 
+V. RESULTS AND ANALYSIS 
+A. Model Performance Comparison 
+In-depth comparisons across various architectures showed 
+considerable differences in performance. BERT -inspired 
+transformer model gave the highest accuracy of 92.5%, 
+showing remarkable improvement compared to conventional 
+methods. CNN -LSTM combined model gained 91.2% 
+accuracy, whereas conventional Naive Bayes techniques 
+reached 87.3% using combined features and 84.2% using text 
+features only. 
+TABLE I.  MODEL PERFORMANCE COMPARISON 
+Model Accuracy Precision Recall F1 Score 
+BERT-Inspired 
+Transformer 92.5% 92.8% 92.5% 92.6% 
+CNN-LSTM Hybrid 91.2% 91.5% 91.2% 91.3% 
+Naive Bayes (Combined) 87.3% 87.1% 87.3% 87.0% 
+Naive Bayes (Text Only) 84.2% 84.5% 84.2% 84.1% 
+Random Baseline 16.8% 16.9% 16.8% 16.7% 
+B. Per-Category Performance Analysis 
+Per-category performance was analyzed in detail to unveil 
+improvements over all types of complaints using transformer-
+based architecture. As shown in Table II and Figure 2, 
+Network Problem classification had the best per -category 
+performance with 94.0% F1-score. International Roaming and 
+Billing Issue categories attained F1 -scores of 92.7% and 
+92.1% respectively.  
+TABLE II.  CATEGORY-WISE PERFORMANCE  
+Category Precision Recall F1-Score Support 
+Network Problem 94.2% 93.8% 94.0% 201 
+International Roaming 92.1% 93.4% 92.7% 198 
+Data Speed 91.8% 92.5% 92.1% 196 
+Dropped Calls 93.5% 92.9% 93.2% 204 
+Customer Service 92.7% 93.1% 92.9% 195 
+Billing Issue 91.4% 92.8% 92.1% 206 
+ 
+Fig. 2. Classification Metrics by Category 
+C. Feature Importance Analysis 
+Attention weight analysis produced domain -specific 
+feature importance trends. As shown in Figure 3, complaints 
+regarding networks displayed prominent attention weights on 
+terms such as "connection" (0.85), "network" (0.82), and 
+"signal" (0.79). Compliant billing issues exhibited high 
+attention on "bill" (0.92), "charge" (0.89), and "payment" 
+(0.81). The attention mechanism was able to effectively pick 
+out semantically relevant terms in every category of 
+complaint, proving the model's ability to learn domain -
+specific trends without explicit feature engineering. 
+Proceedings of the 3rd International Conference on Sustainable Computing and Data Communication Systems (ICSCDS-2025)
+IEEE Xplore Part Number: CFP25AZ5-ART; ISBN: 979-8-3315-1250-7
+979-8-3315-1250-7/25/$31.00 ©2025 IEEE 911
+Authorized licensed use limited to: National Library of Technology. Downloaded on December 27,2025 at 14:00:35 UTC from IEEE Xplore.  Restrictions apply. 
+ 
+Fig. 3. Top 15 Most Important Features 
+D. Computational Performance Analysis 
+Deployment in terms of production were assessed via 
+inference time and memory usage analysis. The BERT-based 
+model had an inference time of 12 milliseconds per 
+complaint, which is appropriate for real -time processing 
+needs. Memory usage was still 89 MB, allowing deployment 
+in environments with limited resources. Figure 4 and Table 
+III take us over the daily complaint volume and the 
+computational model performance.  
+ 
+Fig. 4. Daily Complaint Volume by Category 
+TABLE III.  COMPUTATIONAL PERFORMANCE COMPARISON:  
+Model Inference 
+Time (ms) 
+Memory 
+Usage (MB) 
+Parameter 
+Count 
+BERT-Inspired 
+Transformer 12 89 187,000 
+CNN-LSTM Hybrid 8 67 156,000 
+Naive Bayes (Combined) 2 5 1,200 
+Full BERT-Base 45 340 110,000,000 
+E. Error Analysis 
+In-depth analysis of errors showed patterns of 
+misclassification. Cross-category confusion was mostly due 
+to semantically related complaint types, for example, 
+Network Problem and Data Speed categories. The analysis of 
+the confusion matrix showed that 78% of the 
+misclassifications were between categories with overlapping 
+technical terms.  
+As shown in Figure 5, m odel confidence analysis proved 
+that correctly classified instances had much higher 
+confidence scores (average 0.89) than the misclassified ones 
+(average 0.62), facilitating confidence -based routing 
+mechanisms for production deployment.  Confidence-based 
+routing and attention-guided feature selection help filter low-
+certainty predictions, thereby enhancing downstream 
+decision quality and reducing misclassification. 
+ 
+Fig. 5. BERT-Inspired Model Confusion Matrix  
+F. Performance Improvements and Implications 
+The 5.2% increase in accuracy provided by transformer 
+models means tangible operational benefits. For telecom 
+companies processing ~10,000 complaints per day, it equates 
+to 520 fewer misclassifications daily, which minimizes 
+workloads for manual reviews an d improves customer 
+satisfaction. In addition to labor savings, enhanced complaint 
+categorization allows for better resource utilization —routing 
+cases to the correct teams decreases resolution time and 
+improves retention in a competitive environment. In co ntrast 
+to traditional models that typically lag on unbalanced classes, 
+the transformer model had F1 -scores above 92% across all 
+categories, guaranteeing reliability in production. McNemar's 
+test validated that performance improvement is statistically 
+significant (p < 0.001), further establishing faith in the 
+efficacy of the model. Also, the use of the attention 
+mechanism obviates manual keyword engineering, adapting 
+automatically to changing language and domain -specific 
+trends—a significant improvement over  conventional 
+techniques. 
+G. Attention Mechanism Analysis 
+The attention mechanism proved to have good domain 
+sense without human feature engineering. It paid attention to 
+contextually salient words such as "signal", "charge", or 
+"slow", with category-specific weights indicating human-like 
+judgment. For example, " slow" received a weight of 0.87 in 
+Data Speed grievances but only 0.34 in Network Issues, 
+demonstrating fine-grained contextual sense. Visualization of 
+attention weights supports not just interpretability but also 
+operational insights. Attention maps can b e used by service 
+managers to determine complaint trends and underlying 
+causes. Temporal changes were observed, e.g., seasonal peaks 
+in attention towards weather -related words, illustrating 
+responsiveness to changing language. The model proved to be 
+resilient to real-world linguistic variation as it performed well 
+across informal or emotionally expressive language. 
+Proceedings of the 3rd International Conference on Sustainable Computing and Data Communication Systems (ICSCDS-2025)
+IEEE Xplore Part Number: CFP25AZ5-ART; ISBN: 979-8-3315-1250-7
+979-8-3315-1250-7/25/$31.00 ©2025 IEEE 912
+Authorized licensed use limited to: National Library of Technology. Downloaded on December 27,2025 at 14:00:35 UTC from IEEE Xplore.  Restrictions apply. 
+H. Production Deployment Considerations  
+The model strikes a balance between superior performance 
+and enterprise deployment requirements. With an inference 
+latency of 12 ms and a small footprint of 89 MB, it can process 
+in real time without needing GPU infrastructure. It can scale 
+2,500 complaints/second on commodity servers with support 
+for containerized deployment using Docker and Kubernetes. 
+Its stateless architecture enables adaptive load balancing and 
+secure use — no customer data is stored after processing. 
+Compatibility with REST APIs allow s seamless integration 
+with systems such as Salesforce and Zendesk. Model 
+versioning, A/B testing, and automated quality monitoring 
+(latency, accuracy, drift detection) support strong, scalable 
+deployment. 
+I. Error Analysis and Model Limitations  
+Most mistakes were between closely related categories 
+(e.g., Data Speed and Network Problems), much due to 
+overlapping vocabulary. Confidence -based routing is 
+suggested: low -confidence predictions (avg. 0.62) can be 
+marked for human evaluation, while high -confidence ones 
+(avg. 0.89) go through automatically. Misclassifications were 
+also found in sarcastic comments, regional spoken dialects, 
+and extremely short complaint texts. Accuracy increased with 
+longer input descriptions, which suggests the importance of 
+richer user input. Shortcomings are the model's existing 
+monolingual configuration and vulnerability to temporal drift 
+as complaint language changes. Retraining schedules and 
+mechanisms for detecting drift will be essential in keeping 
+long-term performance up. 
+VI. CONCLUSION AND FUTURE WORK 
+Future research will generalize this framework to enable 
+multilingual complaint classification via cross-lingual transfer 
+learning and language -specific attention mechanisms, 
+allowing telecom providers to better serve global user bases. 
+Incorporating speec h-to-text systems can further improve 
+real-time call center automation, although this creates 
+challenges such as noise filtering and accent handling. 
+Ensemble transformer models could provide further 
+performance benefits, although system complexity and 
+computational expenses need to be weighed. Temporal 
+modeling of complaint patterns, when correlated with network 
+performance measures, would yield predictive results that 
+could anticipate and anticipate and anticipate initiative-taking 
+service management. Integrating sentiment analysis, urgency 
+prediction, and solution recommender systems will result in 
+fully integrated, intelligent customer service platforms. Multi-
+task learning would further enhance collective learning across 
+similar customer support tasks. Constructing robust models 
+will be important for field deployment. Model performance 
+can be improved through ensemble techniques of CNN and 
+transformer outputs, or through incorporating structured 
+account metadata using multi-input models. Transfer learning 
+from domain -specific corpora and multilingual training are 
+also promising. This research illustrates the efficiency of 
+transformer-based NLP models —specifically BERT —in 
+telecom complaint classification, registering 92.5% accuracy 
+with enterprise -class fe asibility. This method surpasses the 
+conventional models by more than 5%, which corresponds to 
+less manual intervention, enhanced customer satisfaction, and 
+greater resource utilization. Attention -based interpretability 
+also enables human monitoring. This research provides a 
+robust platform for future NLP-based innovations in telecom 
+customer service automation. 
+REFERENCES 
+[1] International Telecommunication Union, "ICT Facts and Figures 
+2023," Geneva, Switzerland, 2023. [Online]. Available: 
+https://www.itu.int/en/ITU-
+D/Statistics/Documents/facts/FactsFigures2023.pdf  
+[2] S. G. Gavrila, C. B. González-Tejero, J. A. G. Gandía, and A. de Lucas 
+Ancillo, “The impact of automation and optimization on customer 
+experience: a consumer perspective,” Humanities and Social Sciences 
+Communications, vol. 10, no. 1, pp. 1 –10, Nov. 2023. [Online]. 
+Available: https://doi.org/10.1057/s41599 -023-02389-0. Accessed: 
+Jun. 7, 2025.  
+[3] T. Joachims, “Text categorization with Support Vector Machines: 
+Learning with many relevant features,” in Machine Learning: ECML-
+98, C. Nédellec and C. Rouveirol, Eds. Berlin, Heidelberg: Springer, 
+1998, vol. 1398, pp. 137 –142. [Online]. Available: 
+https://doi.org/10.1007/BFb0026683. Accessed: Jun. 7, 2025.  
+[4] V. Vinayak and J. Chandrasekharan, “Consumer Complaints 
+Classification using Deep Learning & Word Embedding Models,” in 
+Proc. 2023 14th Int. Conf. on Computing Communication and 
+Networking Technologies (ICCCNT), 2023, pp. 1 –6. [Online]. 
+Available: https:// doi.org/10.1109/ICCCNT56998.2023.10307286. 
+Accessed: Jun. 7, 2025  
+[5] Y. Kim, “Convolutional Neural Networks for Sentence Classification,” 
+arXiv preprint arXiv:1408.5882, 2014. [Online]. Available: 
+https://doi.org/10.48550/arXiv.1408.5882.  Accessed: Jun. 7, 2025.  
+[6] Z. Yang, D. Yang, C. Dyer, X. He, A. Smola, and E. Hovy, 
+“Hierarchical Attention Networks for Document Classification,” in 
+Proceedings of the 2016 Conference of the North American Chapter of 
+the Association for Computational Linguistics: Human Language 
+Technologies, San Diego, CA, USA, Jun. 2016, pp. 1480 –1489. 
+[Online]. Available: https://doi.org/10.18653/v1/N16-1174. Accessed: 
+Jun. 7, 2025.  
+[7] A. Vaswani et al., “Attention Is All You Need,” arXiv preprint 
+arXiv:1706.03762, 2017. [Online]. Available: 
+https://doi.org/10.48550/arXiv.1706.03762. Accessed: Jun. 7, 2025.  
+[8] J. Devlin, M. -W. Chang, K. Lee, and K. Toutanova, “BERT: Pre -
+training of Deep Bidirectional Transformers for Language 
+Understanding,” arXiv preprint arXiv:1810.04805, 2018. [Online]. 
+Available: https://doi.org/10.48550/arXiv.1810.04805. Accessed: Jun. 
+7, 2025.  
+[9] Y. Liu, M. Ott, N. Goyal, J. Du, M. Joshi, D. Chen, O. Levy, M. Lewis, 
+L. Zettlemoyer, and V. Stoyanov, “RoBERTa: A Robustly Optimized 
+BERT Pretraining Approach,” arXiv preprint arXiv:1907.11692, 2019. 
+[Online]. Available: https://doi.org/10.48550/arXiv.1907.11692. 
+Accessed: Jun. 7, 2025.  
+[10] Y. Lin, H. Chen, W. Xia, F. Lin, Z. Wang, and Y. Liu, “A 
+Comprehensive Survey on Deep Learning Techniques in Educational 
+Data Mining,” arXiv preprint arXiv:2309.04761v3, Feb. 2024. 
+[Online]. Available: https://doi.org/10.48550/arXiv.2309.04761.  
+Accessed: Jun. 7, 2025.  
+[11] S. Gudavalli, “Machine Learning Applications in 
+Telecommunications,” SSRN, Sep. 20, 2024. [Online]. Available: 
+https://ssrn.com/abstract=5068351. Accessed: Jun. 7, 2025.  
+[12] M. Mashaabi, A. Alotaibi, H. Qudaih, R. Alnashwan, and H. Al -
+Khalifa, “Natural Language Processing in Customer Service: A 
+Systematic Review,” arXiv preprint arXiv:2212.09523, Dec. 2022. 
+[Online]. Available: https://doi.org/10.48550/arXiv.2212.09523. 
+Accessed: Jun. 7, 2025.  
+[13] S. Kingston, Prassanth, S. A. V., B. M. S., and M. K. Rajagopal, 
+“Comparative study on Judgment Text Classification for Transformer 
+Based Models,” arXiv preprint arXiv:2306.01739, Apr. 2023. [Online]. 
+Available: https://doi.org/10.48550/arXiv.2306.01739.  Accessed: Jun. 
+7, 2025.  
+[14] T. Rajapakshe, R. Rana, S. Khalifa, and B. W. Schuller, “Domain 
+Adapting Deep Reinforcement Learning for Real -world Speech 
+Emotion Recognition,” arXiv preprint arXiv:2207.12248v3, Dec. 
+2024. [Online]. Available: https://doi.org/10.48550/arXiv.2207.12248.  
+Accessed: Jun. 7, 2025.  
+[15] Q. Li, H. Peng, J. Li, C. Xia, R. Yang, L. Sun, P. S. Yu, and L. He, “A 
+Survey on Text Classification: From Traditional to Deep Learning,” 
+ACM Transactions on Intelligent Systems and Technology, vol. 13, no. 
+2, pp. 1 –41, Apr. 2022. [Online]. Available: 
+https://doi.org/10.1145/3495162   Accessed: Jun. 7, 2025
+Proceedings of the 3rd International Conference on Sustainable Computing and Data Communication Systems (ICSCDS-2025)
+IEEE Xplore Part Number: CFP25AZ5-ART; ISBN: 979-8-3315-1250-7
+979-8-3315-1250-7/25/$31.00 ©2025 IEEE 913
+Authorized licensed use limited to: National Library of Technology. Downloaded on December 27,2025 at 14:00:35 UTC from IEEE Xplore.  Restrictions apply. 
