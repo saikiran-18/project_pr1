@@ -65,4 +65,4 @@ python -m http.server 5500
 *The web portal will boot on `http://127.0.0.1:5500`*
 
 ---
-*Built as a Final Year Academic Engineering Project evaluating secure, end-to-end Enterprise AI deployment topologies.*
+*Built a end-to-end Enterprise AI deployment topologies.*
