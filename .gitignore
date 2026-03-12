@@ -1,0 +1,30 @@
+# Python Virtual Environments
+.venv/
+venv/
+env/
+__pycache__/
+*.pyc
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Database (Do not push live customer data/passwords)
+backend/complaints.db
+
+# Large ML Datasets
+data/
+
+# Machine Learning HuggingFace Models (Too large for standard GitHub limits > 100MB)
+models/best_model_iter2/
+models/*.pkl
+!models/label_encoder.pkl
+
+# Keep the CSV folder structure but ignore live data
+backend/sheets/*.csv
+!backend/sheets/Finance_Department.csv
+!backend/sheets/Product_Management.csv
+!backend/sheets/Logistics___Delivery.csv
+!backend/sheets/Customer_Service.csv
+!backend/sheets/Customer_Accounts.csv
+!backend/sheets/Pending_Admin_Review.csv

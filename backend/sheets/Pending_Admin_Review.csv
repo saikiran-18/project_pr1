@@ -1,0 +1,1 @@
+complaint_id,created_at,customer_name,customer_email,category,priority,urgency,sla,status,sentiment_label,sentiment_score,text

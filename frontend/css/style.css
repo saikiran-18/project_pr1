@@ -31,6 +31,20 @@ body {
 }
 
 /* --- LAYOUT --- */
+.auth-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 420px;
+    padding: 2.5rem;
+}
+
 .app-container {
     display: flex;
     width: 100%;

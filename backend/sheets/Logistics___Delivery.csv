@@ -1,7 +1,12 @@
 complaint_id,created_at,customer_name,customer_email,category,priority,urgency,sla,status,sentiment_label,sentiment_score,text
-CMP-EE539B23,2026-02-26T18:42:11.485014,John Doe,john@example.com,Delivery,Medium,False,24 Hours,Open,Negative,-0.2263,My delivery is being delayed. I haven't received my package yet.
-CMP-4B3F5CFE,2026-02-26T19:00:02.133214,Test DB User,dbtest@user.com,Delivery,High,True,12 Hours,Open,Neutral,0.0,My service has been completely down for the last 5 days. I need someone to look at this now!
-CMP-EE2D3CCE,2026-02-26T19:49:23.313790,Saikiran.k,sai@gmail.com,Delivery,Low,False,48 Hours,Open,Positive,0.0762,i cant pay my bill
-CMP-8F80DCA8,2026-02-26T19:56:26.077587,Saikiran.k,sai@gmail.com,Delivery,Low,False,48 Hours,Open,Neutral,0.0,i have not recieved the package
-CMP-B154275D,2026-02-26T20:05:08.643645,Test Delivery,delivery@test.com,Delivery,Low,False,48 Hours,Open,Neutral,0.0,My package said it was delivered 3 days ago but I never received anything at my door.
-CMP-FF3D38C2,2026-02-26T20:05:09.353001,Test Product,product@test.com,Delivery,Medium,False,24 Hours,Open,Negative,-0.4767,The phone case I bought is already cracking after one week of use. Terrible quality.
+CMP-EE539B23,2026-02-26T18:42:11.485014,John Doe,john@example.com,Delivery,Medium,False,24 Hours,Resolved,Negative,-0.2263,My delivery is being delayed. I haven't received my package yet.
+CMP-4B3F5CFE,2026-02-26T19:00:02.133214,Test DB User,dbtest@user.com,Delivery,High,True,12 Hours,Resolved,Neutral,0.0,My service has been completely down for the last 5 days. I need someone to look at this now!
+CMP-EE2D3CCE,2026-02-26T19:49:23.313790,Saikiran.k,sai@gmail.com,Delivery,Low,False,48 Hours,Resolved,Positive,0.0762,i cant pay my bill
+CMP-8F80DCA8,2026-02-26T19:56:26.077587,Saikiran.k,sai@gmail.com,Delivery,Low,False,48 Hours,Resolved,Neutral,0.0,i have not recieved the package
+CMP-B154275D,2026-02-26T20:05:08.643645,Test Delivery,delivery@test.com,Delivery,Low,False,48 Hours,Resolved,Neutral,0.0,My package said it was delivered 3 days ago but I never received anything at my door.
+CMP-FF3D38C2,2026-02-26T20:05:09.353001,Test Product,product@test.com,Delivery,Medium,False,24 Hours,Resolved,Negative,-0.4767,The phone case I bought is already cracking after one week of use. Terrible quality.
+CMP-D43303C2,2026-03-09T14:50:45.983356,sumu,syn@gmail.com,Delivery,Low,False,48 Hours,Resolved,Neutral,0.0,i have issue with my call and data services 
+CMP-54AB3758,2026-03-11T01:15:18.421198,sara,sara@gmail.com,Delivery,Critical,True,2 Hours,Resolved,Negative,-0.7872,"""I ordered a birthday present for my son two weeks ago and your tracking says it was delivered yesterday, but I never received anything! Our porch camera shows no delivery driver ever came. His birthday is tomorrow and I am furious. I need this completely resolved or a full refund IMMEDIATELY!"""
+CMP-29CF75FA,2026-03-11T01:28:49.199989,barathi,bharathi@gmail.com,Delivery,Low,False,48 Hours,Resolved,Neutral,0.0,"still i didn't recieve my order i my waiting for a whole week"
+CMP-135264F6,2026-03-11T21:36:53.315938,saikiran,segarsaikiran11071@gmail.com,Delivery,Low,False,48 Hours,Resolved,Positive,0.296,"""The quick brown fox jumped over the lazy dog but then decided to eat an apple while doing taxes on a Tuesday. Why does the moon orbit the earth? Please fix."""
+CMP-808CA47C,2026-03-12T17:43:08.139875,saikiran,segarsaikiran11071@gmail.com,Delivery,Low,False,48 Hours,Resolved,Neutral,0.0,i still not recieved my order its been a whole week 
